@@ -121,6 +121,7 @@ class PokemonCardGame {
             case 'mobileDeckBottom': this.drawFromBottom(player); break;
             case 'loadDeck':   this.loadDeck(player); break;
             case 'viewDeck':   this.viewDeck(player); break;
+            case 'loadDeckManual': this.loadDeckManual(player); break;
         }
     }
 
@@ -302,12 +303,19 @@ class PokemonCardGame {
         this.showMessage(`プレイヤー${player}: デッキを読み込み中...`);
         
         try {
-            const response = await fetch(`http://127.0.0.1:3000/api/deck/${deckCode}`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const response = await fetch(`/api/deck/${encodeURIComponent(deckCode)}`);
+            if (!response.ok) {
+                let msg = `HTTP ${response.status}`;
+                try {
+                    const errJson = await response.json();
+                    msg = errJson.message || errJson.error || msg;
+                } catch {}
+                throw new Error(msg);
+            }
             const data = await response.json();
             
             if (!data.success || !data.cardIds || data.cardIds.length === 0) {
-                throw new Error('カードが見つかりませんでした');
+                throw new Error(data.message || 'カードが見つかりませんでした');
             }
 
             // ── デッキ・フィールドをリセット ──
@@ -326,7 +334,7 @@ class PokemonCardGame {
                     name:      cardId,          // ★ IDをそのまま名前に（後でAPIで補完可能）
                     type:      '不明',          // ★ ダミーのgetCardType()を使わない
                     cardId:    cardId,
-                    imageUrl:  `http://127.0.0.1:3000/api/image/${encodeURIComponent(cardId)}`,
+                    imageUrl:  `/api/image/${cardId}`,
                     faceUp:    false,           // ★ デッキは最初から裏向き
                     damage:    0,
                     condition: null,
@@ -341,6 +349,37 @@ class PokemonCardGame {
             console.error('デッキ読み込みエラー:', error);
             this.showMessage(`プレイヤー${player}: 読み込み失敗 — ${error.message}`);
         }
+    }
+
+    loadDeckManual(player) {
+        const textarea = document.getElementById(`deckList${player}`);
+        const raw = (textarea?.value || '').split('\n')
+            .map(s => s.trim()).filter(Boolean);
+        if (raw.length === 0) {
+            this.showMessage(`プレイヤー${player}: カードIDを入力してください`);
+            return;
+        }
+        this.players[player].deck       = [];
+        this.players[player].hand       = [];
+        this.players[player].battleZone = null;
+        this.players[player].bench      = [null, null, null, null, null];
+        this.players[player].trash      = [];
+
+        raw.forEach((cardId, index) => {
+            this.players[player].deck.push({
+                id:        index + 1,
+                name:      cardId,
+                type:      '不明',
+                cardId:    cardId,
+                imageUrl:  `/api/image/${cardId}`,
+                faceUp:    false,
+                damage:    0,
+                condition: null,
+                player:    player
+            });
+        });
+        this.updateDisplay();
+        this.showMessage(`プレイヤー${player}: ${raw.length}枚のデッキを手動セットしました！シャッフルしてください。`);
     }
 
     viewDeck(player) {
@@ -615,12 +654,21 @@ class PokemonCardGame {
         cardDiv.dataset.player = card.player;
         if (index !== null) cardDiv.dataset.index = index;
 
-        const backImageUrl = 'http://127.0.0.1:3000/api/image/back';
+        const backImageUrl = '/api/image/back';
 
         if (card.faceUp && card.imageUrl) {
-            cardDiv.style.backgroundImage    = `url('${card.imageUrl}')`;
-            cardDiv.style.backgroundSize     = 'cover';
-            cardDiv.style.backgroundPosition = 'center';
+            const img = new Image();
+            img.onload = () => {
+                cardDiv.style.backgroundImage    = `url('${card.imageUrl}')`;
+                cardDiv.style.backgroundSize     = 'cover';
+                cardDiv.style.backgroundPosition = 'center';
+            };
+            img.onerror = () => {
+                cardDiv.style.backgroundImage    = `url('${backImageUrl}')`;
+                cardDiv.style.backgroundSize     = 'cover';
+                cardDiv.style.backgroundPosition = 'center';
+            };
+            img.src = card.imageUrl;
             cardDiv.innerHTML = `
                 <div class="card-overlay">
                     ${card.damage > 0 ? `<div class="damage-counter">${card.damage}</div>` : ''}
