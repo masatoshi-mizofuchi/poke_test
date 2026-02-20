@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポケモンカード2人回しツール</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>ポケモンカード2人回しツール</h1>
+        <nav>
+            <button id="darkModeToggle">ダークモード切り替え</button>
+            <button id="tableMode">表にする</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- プレイヤー1エリア -->
+        <div class="player-area" id="player1">
+            <h2 class="player-title">プレイヤー1</h2>
+            
+            <!-- デッキ操作エリア -->
+            <section class="deck-controls">
+                <h3>デッキ操作</h3>
+                <div class="button-group">
+                    <button class="player-btn" data-player="1" data-action="shuffle">シャッフル</button>
+                    <button class="player-btn" data-player="1" data-action="draw1">1枚とる</button>
+                    <button class="player-btn" data-player="1" data-action="draw2">2枚とる</button>
+                    <button class="player-btn" data-player="1" data-action="draw3">3枚とる</button>
+                    <button class="player-btn" data-player="1" data-action="drawTop">デッキトップ</button>
+                    <button class="player-btn" data-player="1" data-action="drawBottom">デッキボトム</button>
+                    <button class="player-btn" data-player="1" data-action="flipCard">カードを裏返す</button>
+                    <button class="player-btn" data-player="1" data-action="viewDeck">デッキを見る</button>
+                </div>
+                
+                <!-- デッキコード入力 -->
+                <div class="deck-code-input">
+                    <h4>デッキコード</h4>
+                    <input type="text" id="deckCode1" placeholder="デッキコードを入力" class="deck-code-field">
+                    <button class="player-btn" data-player="1" data-action="loadDeck">デッキ読み込み</button>
+                </div>
+            </section>
+
+            <!-- 特殊状態 -->
+            <section class="special-conditions">
+                <h3>特殊状態</h3>
+                <div class="button-group">
+                    <button class="condition-btn player-btn" data-player="1" data-condition="やけど">やけど</button>
+                    <button class="condition-btn player-btn" data-player="1" data-condition="どく">どく</button>
+                    <button class="condition-btn player-btn" data-player="1" data-condition="ねむり">ねむり</button>
+                    <button class="condition-btn player-btn" data-player="1" data-condition="まひ">まひ</button>
+                    <button class="condition-btn player-btn" data-player="1" data-condition="こんらん">こんらん</button>
+                </div>
+            </section>
+
+            <!-- メインゲームエリア -->
+            <section class="game-area">
+                <!-- バトル場 -->
+                <div class="battle-zone">
+                    <h4>バトル場</h4>
+                    <div class="battle-area" id="battleZone1">
+                        <div class="card-slot" data-zone="battle" data-player="1"></div>
+                        <div class="damage-controls">
+                            <button class="damage-btn player-btn" data-player="1" data-damage="-10">-10</button>
+                            <button class="damage-btn player-btn" data-player="1" data-damage="+10">+10</button>
+                            <button class="damage-btn player-btn" data-player="1" data-damage="-30">-30</button>
+                            <button class="damage-btn player-btn" data-player="1" data-damage="+30">+30</button>
+                            <button class="damage-btn player-btn" data-player="1" data-damage="-50">-50</button>
+                            <button class="damage-btn player-btn" data-player="1" data-damage="+50">+50</button>
+                            <button class="damage-btn player-btn" data-player="1" data-damage="-100">-100</button>
+                            <button class="damage-btn player-btn" data-player="1" data-damage="+100">+100</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ベンチ -->
+                <div class="bench-zone">
+                    <h4>ベンチ</h4>
+                    <div class="bench-area" id="benchZone1">
+                        <div class="bench-slot" data-bench="1">
+                            <div class="card-slot" data-zone="bench1" data-player="1"></div>
+                            <div class="bench-controls">
+                                <button class="move-up player-btn" data-player="1" data-bench="1">▲</button>
+                                <button class="move-down player-btn" data-player="1" data-bench="1">▼</button>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-bench="2">
+                            <div class="card-slot" data-zone="bench2" data-player="1"></div>
+                            <div class="bench-controls">
+                                <button class="move-up player-btn" data-player="1" data-bench="2">▲</button>
+                                <button class="move-down player-btn" data-player="1" data-bench="2">▼</button>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-bench="3">
+                            <div class="card-slot" data-zone="bench3" data-player="1"></div>
+                            <div class="bench-controls">
+                                <button class="move-up player-btn" data-player="1" data-bench="3">▲</button>
+                                <button class="move-down player-btn" data-player="1" data-bench="3">▼</button>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-bench="4">
+                            <div class="card-slot" data-zone="bench4" data-player="1"></div>
+                            <div class="bench-controls">
+                                <button class="move-up player-btn" data-player="1" data-bench="4">▲</button>
+                                <button class="move-down player-btn" data-player="1" data-bench="4">▼</button>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-bench="5">
+                            <div class="card-slot" data-zone="bench5" data-player="1"></div>
+                            <div class="bench-controls">
+                                <button class="move-up player-btn" data-player="1" data-bench="5">▲</button>
+                                <button class="move-down player-btn" data-player="1" data-bench="5">▼</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="player-btn" data-player="1" data-action="addBench">ベンチ+</button>
+                    <button class="player-btn" data-player="1" data-action="clearChecks">チェック解除</button>
+                </div>
+
+                <!-- 手札エリア -->
+                <div class="hand-area">
+                    <h4>手札</h4>
+                    <div class="hand-cards" id="handCards1">
+                        <!-- 手札カードがここに表示される -->
+                    </div>
+                </div>
+
+                <!-- デッキとトラッシュ -->
+                <div class="deck-trash-area">
+                    <div class="deck-zone">
+                        <h4>デッキ</h4>
+                        <div class="deck-pile" id="deckPile1">
+                            <div class="card-back"></div>
+                            <div class="deck-count">60</div>
+                        </div>
+                    </div>
+                    <div class="trash-zone">
+                        <h4>トラッシュ</h4>
+                        <div class="trash-pile" id="trashPile1">
+                            <!-- トラッシュカードがここに表示される -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- プレイヤー2エリア -->
+        <div class="player-area" id="player2">
+            <h2 class="player-title">プレイヤー2</h2>
+            
+            <!-- デッキ操作エリア -->
+            <section class="deck-controls">
+                <h3>デッキ操作</h3>
+                <div class="button-group">
+                    <button class="player-btn" data-player="2" data-action="shuffle">シャッフル</button>
+                    <button class="player-btn" data-player="2" data-action="draw1">1枚とる</button>
+                    <button class="player-btn" data-player="2" data-action="draw2">2枚とる</button>
+                    <button class="player-btn" data-player="2" data-action="draw3">3枚とる</button>
+                    <button class="player-btn" data-player="2" data-action="drawTop">デッキトップ</button>
+                    <button class="player-btn" data-player="2" data-action="drawBottom">デッキボトム</button>
+                    <button class="player-btn" data-player="2" data-action="flipCard">カードを裏返す</button>
+                    <button class="player-btn" data-player="2" data-action="viewDeck">デッキを見る</button>
+                </div>
+                
+                <!-- デッキコード入力 -->
+                <div class="deck-code-input">
+                    <h4>デッキコード</h4>
+                    <input type="text" id="deckCode2" placeholder="デッキコードを入力" class="deck-code-field">
+                    <button class="player-btn" data-player="2" data-action="loadDeck">デッキ読み込み</button>
+                </div>
+            </section>
+
+            <!-- 特殊状態 -->
+            <section class="special-conditions">
+                <h3>特殊状態</h3>
+                <div class="button-group">
+                    <button class="condition-btn player-btn" data-player="2" data-condition="やけど">やけど</button>
+                    <button class="condition-btn player-btn" data-player="2" data-condition="どく">どく</button>
+                    <button class="condition-btn player-btn" data-player="2" data-condition="ねむり">ねむり</button>
+                    <button class="condition-btn player-btn" data-player="2" data-condition="まひ">まひ</button>
+                    <button class="condition-btn player-btn" data-player="2" data-condition="こんらん">こんらん</button>
+                </div>
+            </section>
+
+            <!-- メインゲームエリア -->
+            <section class="game-area">
+                <!-- バトル場 -->
+                <div class="battle-zone">
+                    <h4>バトル場</h4>
+                    <div class="battle-area" id="battleZone2">
+                        <div class="card-slot" data-zone="battle" data-player="2"></div>
+                        <div class="damage-controls">
+                            <button class="damage-btn player-btn" data-player="2" data-damage="-10">-10</button>
+                            <button class="damage-btn player-btn" data-player="2" data-damage="+10">+10</button>
+                            <button class="damage-btn player-btn" data-player="2" data-damage="-30">-30</button>
+                            <button class="damage-btn player-btn" data-player="2" data-damage="+30">+30</button>
+                            <button class="damage-btn player-btn" data-player="2" data-damage="-50">-50</button>
+                            <button class="damage-btn player-btn" data-player="2" data-damage="+50">+50</button>
+                            <button class="damage-btn player-btn" data-player="2" data-damage="-100">-100</button>
+                            <button class="damage-btn player-btn" data-player="2" data-damage="+100">+100</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ベンチ -->
+                <div class="bench-zone">
+                    <h4>ベンチ</h4>
+                    <div class="bench-area" id="benchZone2">
+                        <div class="bench-slot" data-bench="1">
+                            <div class="card-slot" data-zone="bench1" data-player="2"></div>
+                            <div class="bench-controls">
+                                <button class="move-up player-btn" data-player="2" data-bench="1">▲</button>
+                                <button class="move-down player-btn" data-player="2" data-bench="1">▼</button>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-bench="2">
+                            <div class="card-slot" data-zone="bench2" data-player="2"></div>
+                            <div class="bench-controls">
+                                <button class="move-up player-btn" data-player="2" data-bench="2">▲</button>
+                                <button class="move-down player-btn" data-player="2" data-bench="2">▼</button>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-bench="3">
+                            <div class="card-slot" data-zone="bench3" data-player="2"></div>
+                            <div class="bench-controls">
+                                <button class="move-up player-btn" data-player="2" data-bench="3">▲</button>
+                                <button class="move-down player-btn" data-player="2" data-bench="3">▼</button>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-bench="4">
+                            <div class="card-slot" data-zone="bench4" data-player="2"></div>
+                            <div class="bench-controls">
+                                <button class="move-up player-btn" data-player="2" data-bench="4">▲</button>
+                                <button class="move-down player-btn" data-player="2" data-bench="4">▼</button>
+                            </div>
+                        </div>
+                        <div class="bench-slot" data-bench="5">
+                            <div class="card-slot" data-zone="bench5" data-player="2"></div>
+                            <div class="bench-controls">
+                                <button class="move-up player-btn" data-player="2" data-bench="5">▲</button>
+                                <button class="move-down player-btn" data-player="2" data-bench="5">▼</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="player-btn" data-player="2" data-action="addBench">ベンチ+</button>
+                    <button class="player-btn" data-player="2" data-action="clearChecks">チェック解除</button>
+                </div>
+
+                <!-- 手札エリア -->
+                <div class="hand-area">
+                    <h4>手札</h4>
+                    <div class="hand-cards" id="handCards2">
+                        <!-- 手札カードがここに表示される -->
+                    </div>
+                </div>
+
+                <!-- デッキとトラッシュ -->
+                <div class="deck-trash-area">
+                    <div class="deck-zone">
+                        <h4>デッキ</h4>
+                        <div class="deck-pile" id="deckPile2">
+                            <div class="card-back"></div>
+                            <div class="deck-count">60</div>
+                        </div>
+                    </div>
+                    <div class="trash-zone">
+                        <h4>トラッシュ</h4>
+                        <div class="trash-pile" id="trashPile2">
+                            <!-- トラッシュカードがここに表示される -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 共通操作エリア -->
+        <div class="common-controls">
+            <!-- サポーターカード -->
+            <section class="supporter-cards">
+                <h2>サポーター</h2>
+                <div class="button-group">
+                    <button class="supporter-btn player-btn" data-player="1" data-supporter="ジャッジマン">P1:ジャッジマン</button>
+                    <button class="supporter-btn player-btn" data-player="2" data-supporter="ジャッジマン">P2:ジャッジマン</button>
+                    <button class="supporter-btn player-btn" data-player="1" data-supporter="デッキ下">P1:デッキ下</button>
+                    <button class="supporter-btn player-btn" data-player="2" data-supporter="デッキ下">P2:デッキ下</button>
+                </div>
+            </section>
+
+            <!-- その他操作 -->
+            <section class="other-controls">
+                <h2>その他操作</h2>
+                <div class="button-group">
+                    <button class="player-btn" data-player="1" data-action="sortCards">P1:並び替え</button>
+                    <button class="player-btn" data-player="2" data-action="sortCards">P2:並び替え</button>
+                    <button class="player-btn" data-player="1" data-action="returnToDeck">P1:デッキ戻し</button>
+                    <button class="player-btn" data-player="2" data-action="returnToDeck">P2:デッキ戻し</button>
+                    <button class="player-btn" data-player="1" data-action="redraw">P1:引き直し</button>
+                    <button class="player-btn" data-player="2" data-action="redraw">P2:引き直し</button>
+                </div>
+            </section>
+
+            <!-- スマホ用コントロール -->
+            <section class="mobile-controls">
+                <h2>スマホ用</h2>
+                <div class="button-group">
+                    <button class="player-btn" data-player="1" data-action="mobileFlip">P1:カードを裏返す</button>
+                    <button class="player-btn" data-player="2" data-action="mobileFlip">P2:カードを裏返す</button>
+                    <button class="player-btn" data-player="1" data-action="mobileDeckTop">P1:デッキトップ</button>
+                    <button class="player-btn" data-player="2" data-action="mobileDeckTop">P2:デッキトップ</button>
+                    <button class="player-btn" data-player="1" data-action="mobileDeckBottom">P1:デッキボトム</button>
+                    <button class="player-btn" data-player="2" data-action="mobileDeckBottom">P2:デッキボトム</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- モーダルウィンドウ -->
+    <div id="cardModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalCardInfo">
+                <!-- カード情報がここに表示される -->
+            </div>
+            <div class="modal-actions">
+                <button id="modalToHand">手札に加える</button>
+                <button id="modalToBattle">バトル場に出す</button>
+                <button id="modalToBench">ベンチに出す</button>
+                <button id="modalToTrash">トラッシュ</button>
+                <button id="modalToDeckTop">デッキトップに戻す</button>
+                <button id="modalToDeckBottom">デッキボトムに戻す</button>
+                <button id="modalFlip">裏表を逆にする</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

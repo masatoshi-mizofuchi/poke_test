@@ -1,0 +1,1041 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ダークモード */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+/* ヘッダー */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+nav button {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+nav button:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* メインコンテンツ */
+main {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* プレイヤーエリア */
+.player-area {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 3px solid #667eea;
+}
+
+body.dark-mode .player-area {
+    background: #2d2d2d;
+    border-color: #4a5fd8;
+}
+
+.player-title {
+    color: #667eea;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 0.5rem;
+}
+
+#player1 {
+    border-color: #ff6b6b;
+}
+
+#player1 .player-title {
+    color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+#player2 {
+    border-color: #4ecdc4;
+}
+
+#player2 .player-title {
+    color: #4ecdc4;
+    border-color: #4ecdc4;
+}
+
+/* 共通操作エリア */
+.common-controls {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .common-controls {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border: 2px solid #444;
+}
+
+/* デッキコード入力 */
+.deck-code-input {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+.deck-code-input h4 {
+    margin: 0 0 0.5rem 0;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.deck-code-field {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box;
+}
+
+.deck-code-field:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.25);
+}
+
+body.dark-mode .deck-code-input {
+    background: #343a40;
+    border-color: #495057;
+}
+
+body.dark-mode .deck-code-input h4 {
+    color: #e9ecef;
+}
+
+body.dark-mode .deck-code-field {
+    background: #495057;
+    border-color: #6c757d;
+    color: #e9ecef;
+}
+
+/* プレイヤーボタン */
+.player-btn {
+    position: relative;
+    font-weight: bold;
+}
+
+.player-btn[data-player="1"] {
+    background: #ff6b6b;
+    border: 2px solid #ff5252;
+}
+
+.player-btn[data-player="1"]:hover {
+    background: #ff5252;
+}
+
+.player-btn[data-player="2"] {
+    background: #4ecdc4;
+    border: 2px solid #45b7b8;
+}
+
+.player-btn[data-player="2"]:hover {
+    background: #45b7b8;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 1200px) {
+    main {
+        max-width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .player-area {
+        margin: 1rem;
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        gap: 1rem;
+        padding: 0.5rem;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .player-area {
+        margin: 0.5rem;
+        padding: 1rem;
+        width: 100%;
+        max-width: none;
+    }
+    
+    .player-title {
+        font-size: 1.2rem;
+    }
+    
+    .common-controls {
+        margin: 0.5rem;
+        padding: 1rem;
+        max-width: 600px;
+    }
+    
+    .game-area {
+        grid-template-columns: 1fr;
+    }
+    
+    .deck-trash-area {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .bench-area {
+        justify-content: center;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+        padding: 1rem;
+    }
+    
+    .modal-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .damage-controls {
+        position: static;
+        margin-top: 1rem;
+    }
+    
+    .button-group {
+        justify-content: center;
+    }
+    
+    .player-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .player-title {
+        font-size: 1rem;
+    }
+    
+    .player-area {
+        padding: 0.5rem;
+    }
+    
+    .card-slot {
+        width: 70px;
+        height: 98px;
+    }
+    
+    .card {
+        width: 70px;
+        height: 98px;
+    }
+    
+    .deck-pile, .trash-pile {
+        width: 80px;
+        height: 112px;
+    }
+    
+    .card-back {
+        width: 70px;
+        height: 98px;
+    }
+    
+    .player-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.7rem;
+    }
+    
+    .damage-btn {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.6rem;
+    }
+}
+
+/* セクション共通スタイル */
+section {
+    background: white;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+body.dark-mode section {
+    background: #2d2d2d;
+    border: 1px solid #444;
+}
+
+section h2 {
+    color: #667eea;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 0.5rem;
+}
+
+section h3 {
+    color: #555;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+body.dark-mode section h3 {
+    color: #bbb;
+}
+
+/* ボタングループ */
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+button:hover {
+    background: #5a6fd8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* 特殊ボタン */
+.condition-btn {
+    background: #ff6b6b;
+}
+
+.condition-btn:hover {
+    background: #ff5252;
+}
+
+.supporter-btn {
+    background: #4ecdc4;
+}
+
+.supporter-btn:hover {
+    background: #45b7b8;
+}
+
+.damage-btn {
+    background: #ffd93d;
+    color: #333;
+    font-weight: bold;
+}
+
+.damage-btn:hover {
+    background: #ffcd00;
+}
+
+/* ゲームエリア */
+.game-area {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+/* バトル場 */
+.battle-zone {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+.battle-area {
+    background: #f8f9fa;
+    border: 2px solid #667eea;
+    border-radius: 10px;
+    padding: 2rem;
+    min-height: 200px;
+    position: relative;
+}
+
+body.dark-mode .battle-area {
+    background: #3d3d3d;
+}
+
+.damage-controls {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.3rem;
+}
+
+/* ベンチ */
+.bench-zone {
+    grid-column: 1 / -1;
+}
+
+.bench-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.bench-slot {
+    text-align: center;
+    position: relative;
+}
+
+.bench-controls {
+    margin-top: 0.5rem;
+}
+
+.bench-controls button {
+    background: #6c757d;
+    font-size: 0.8rem;
+}
+
+/* カードスロット */
+.card-slot {
+    width: 100px;
+    height: 140px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background: #f9f9f9;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card-slot:hover {
+    border-color: #667eea;
+    background: #f0f4ff;
+}
+
+body.dark-mode .card-slot {
+    background: #2d2d2d;
+    border-color: #555;
+}
+
+body.dark-mode .card-slot:hover {
+    background: #3d3d3d;
+    border-color: #667eea;
+}
+
+/* カード */
+.card {
+    width: 100px;
+    height: 140px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+    border: 1px solid #ddd;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.card.face-down {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    color: white;
+}
+
+.card.face-down::after {
+    content: "裏";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 4px;
+    pointer-events: none;
+}
+
+.card-overlay .damage-counter {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(255, 0, 0, 0.9);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* デッキビューモーダル */
+.deck-view-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.deck-view-modal .modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.deck-view-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    background: #f8f9fa;
+}
+
+.deck-view-modal .modal-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.deck-view-modal .close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.deck-view-modal .close-btn:hover {
+    background: #e9ecef;
+    color: #333;
+}
+
+.deck-view-modal .modal-body {
+    padding: 20px;
+    max-height: calc(90vh - 140px);
+    overflow-y: auto;
+}
+
+.deck-view-modal .deck-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.deck-view-modal .deck-card {
+    width: 100px;
+    height: 140px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid #ddd;
+    overflow: hidden;
+}
+
+.deck-view-modal .deck-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.deck-view-modal .deck-card.face-up {
+    background: white;
+}
+
+.deck-view-modal .deck-card.face-down {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+}
+
+.deck-view-modal .card-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.deck-view-modal .card-back {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.deck-view-modal .card-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.deck-view-modal .deck-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.deck-view-modal .deck-controls button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.deck-view-modal .flip-all-btn {
+    background: #28a745;
+    color: white;
+}
+
+.deck-view-modal .flip-all-btn:hover {
+    background: #218838;
+}
+
+.deck-view-modal .flip-back-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.deck-view-modal .flip-back-btn:hover {
+    background: #5a6268;
+}
+
+/* ダークモード対応 */
+body.dark-mode .deck-view-modal .modal-content {
+    background: #2d2d2d;
+    color: white;
+}
+
+body.dark-mode .deck-view-modal .modal-header {
+    background: #3d3d3d;
+    border-bottom-color: #555;
+}
+
+body.dark-mode .deck-view-modal .modal-header h3 {
+    color: white;
+}
+
+body.dark-mode .deck-view-modal .close-btn {
+    color: #ccc;
+}
+
+body.dark-mode .deck-view-modal .close-btn:hover {
+    background: #555;
+    color: white;
+}
+
+body.dark-mode .deck-view-modal .modal-body {
+    background: #2d2d2d;
+}
+
+body.dark-mode .deck-view-modal .deck-card {
+    border-color: #555;
+}
+
+body.dark-mode .deck-view-modal .deck-controls {
+    background: #3d3d3d;
+}
+
+/* 手札エリア */
+.hand-area {
+    grid-column: 1 / -1;
+}
+
+.hand-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 150px;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+body.dark-mode .hand-cards {
+    background: #2d2d2d;
+    border-color: #444;
+}
+
+/* デッキとトラッシュ */
+.deck-trash-area {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    grid-column: 1 / -1;
+}
+
+.deck-zone, .trash-zone {
+    text-align: center;
+}
+
+.deck-pile, .trash-pile {
+    width: 120px;
+    height: 168px;
+    border: 2px solid #667eea;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.deck-pile {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+}
+
+.trash-pile {
+    background: #f8f9fa;
+    border-style: dashed;
+}
+
+body.dark-mode .trash-pile {
+    background: #2d2d2d;
+}
+
+.deck-pile:hover, .trash-pile:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.card-back {
+    width: 100px;
+    height: 140px;
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.deck-count {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    padding: 0.2rem 0.5rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* モーダル */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .modal-content {
+    background: #2d2d2d;
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.close:hover {
+    color: #000;
+}
+
+body.dark-mode .close:hover {
+    color: #fff;
+}
+
+.modal-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.modal-actions button {
+    background: #667eea;
+    padding: 0.8rem;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .game-area {
+        grid-template-columns: 1fr;
+    }
+    
+    .deck-trash-area {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .bench-area {
+        justify-content: center;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+        padding: 1rem;
+    }
+    
+    .modal-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .damage-controls {
+        position: static;
+        margin-top: 1rem;
+    }
+    
+    .button-group {
+        justify-content: center;
+    }
+    
+    .player-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .button-group {
+        justify-content: center;
+    }
+    
+    button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .card-slot {
+        width: 80px;
+        height: 112px;
+    }
+    
+    .card {
+        width: 80px;
+        height: 112px;
+    }
+    
+    .deck-pile, .trash-pile {
+        width: 100px;
+        height: 140px;
+    }
+    
+    .card-back {
+        width: 80px;
+        height: 112px;
+    }
+}
+
+/* アニメーション */
+@keyframes cardDraw {
+    from {
+        transform: translateY(-20px) rotate(5deg);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+    }
+}
+
+.card-draw-animation {
+    animation: cardDraw 0.5s ease-out;
+}
+
+@keyframes shuffle {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-10px) rotate(2deg); }
+    75% { transform: translateY(-10px) rotate(-2deg); }
+}
+
+.shuffle-animation {
+    animation: shuffle 0.5s ease-in-out;
+}
+
+/* 状態インジケーター */
+.condition-indicator {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff6b6b;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.damage-counter {
+    position: absolute;
+    bottom: -5px;
+    left: -5px;
+    background: #ffd93d;
+    color: #333;
+    border-radius: 10px;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+/* ロストゾーン */
+.lost-zone {
+    background: #2c3e50;
+    border: 2px solid #34495e;
+    color: #ecf0f1;
+}
+
+body.dark-mode .lost-zone {
+    background: #1a1a1a;
+    border-color: #333;
+}
